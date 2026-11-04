@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react'; // v5 compatible
+import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
@@ -8,9 +8,12 @@ import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap
 const NavBar: React.FC = () => {
   const { data: session, status } = useSession();
   const pathName = usePathname();
+
   if (status === 'loading') return null;
+
   const currentUser = session?.user?.email;
   const role = session?.user?.role;
+
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
@@ -24,7 +27,7 @@ const NavBar: React.FC = () => {
                   Add Stuff
                 </Nav.Link>
                 <Nav.Link id="list-stuff-nav" href="/list" active={pathName === '/list'}>
-                  List Stuff
+                  List Contacts
                 </Nav.Link>
               </>
             )}
