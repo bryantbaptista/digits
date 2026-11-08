@@ -6,7 +6,6 @@ import { auth } from '@/lib/auth';
 
 /** Render a list of contacts for the logged in user. */
 const ListPage = async () => {
-  // Protect the page, only logged in users can access it.
   const session = await auth();
   loggedInProtectedPage(
     session as {
@@ -20,18 +19,25 @@ const ListPage = async () => {
     where: {
       owner,
     },
+    include: {
+      notes: {
+        where: {
+          owner,
+        },
+      },
+    },
   });
 
   return (
     <main>
-      <Container id="list" fluid className="py-3">
+      <Container id="list" fluid className="py-3 px-4 px-md-5">
         <Row>
           <Col>
-            <h2>List Contacts</h2>
+            <h2 className="text-center mb-5">List Contacts</h2>
             <Row xs={1} md={2} lg={3} className="g-4">
               {contacts.map((contact) => (
                 <Col key={`Contact-${contact.id}`}>
-                  <ContactCard contact={contact} />
+                  <ContactCard contact={contact} notes={contact.notes} />
                 </Col>
               ))}
             </Row>
