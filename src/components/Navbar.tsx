@@ -12,7 +12,6 @@ const NavBar: React.FC = () => {
   if (status === 'loading') return null;
 
   const currentUser = session?.user?.email;
-  const role = session?.user?.role;
 
   return (
     <Navbar bg="dark" expand="lg">
@@ -26,15 +25,10 @@ const NavBar: React.FC = () => {
                 <Nav.Link id="add-contact-nav" href="/add" active={pathName === '/add'}>
                   Add Contact
                 </Nav.Link>
-                <Nav.Link id="list-stuff-nav" href="/list" active={pathName === '/list'}>
+                <Nav.Link id="list-contacts-nav" href="/list" active={pathName === '/list'}>
                   List Contacts
                 </Nav.Link>
               </>
-            )}
-            {currentUser && role === 'ADMIN' && (
-              <Nav.Link id="admin-stuff-nav" href="/admin" active={pathName === '/admin'}>
-                Admin
-              </Nav.Link>
             )}
           </Nav>
           <Nav>
